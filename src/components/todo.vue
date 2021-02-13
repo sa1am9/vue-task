@@ -10,8 +10,8 @@
             </li>
         </ul>
         <div>
-            <ui-textbox placeholder="e.g. 'read vue.js guide'" v-model="newTaskName"></ui-textbox>
-            <ui-button color="primary" @click="addTask" icon="add">Add</ui-button>
+            <ui-textbox v-on:keydown="EnterkeyPress"  placeholder="e.g. 'read vue.js guide'" v-model="newTaskName" v-on:keyup.enter="addTask"></ui-textbox>
+            <ui-button color="primary" v-on:click="addTask" icon="add">Add</ui-button>
         </div>
     </div>
 </template>
@@ -43,6 +43,13 @@
             addTask () {
                 this.tasks.push({name : this.newTaskName, complete : false});
                 this.newTaskName = '';
+            },
+            EnterkeyPress (evt){
+                evt = evt ? evt : window.event;
+                var charCode = evt.which ? evt.which : evt.keyCode;
+                if (charCode===13){
+                   this.addTask()
+                }
             }
         }
     };
