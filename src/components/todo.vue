@@ -43,8 +43,10 @@
 
         methods : {
             addTask () {
-                this.tasks.push({name : this.newTaskName, complete : false});
-                this.newTaskName = '';
+                if (this.newTaskName.length > 0){
+                    this.tasks.push({name : this.newTaskName, complete : false});
+                    this.newTaskName = '';
+                }
             },
             EnterkeyPress (evt){
                 evt = evt ? evt : window.event;
