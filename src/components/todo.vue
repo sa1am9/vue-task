@@ -4,8 +4,9 @@
         <ul class="tasks">
             <li v-for="task in tasks" :class="{complete : task.complete}">
                 <label>
-                    <input type="checkbox" v-model="task.complete" />
-                    {{task.name}}
+                    <ui-checkbox type="checkbox" v-model="task.complete" >
+                        {{task.name}}
+                    </ui-checkbox>
                 </label>
             </li>
         </ul>
