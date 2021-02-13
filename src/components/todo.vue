@@ -5,7 +5,8 @@
             <li v-for="task in tasks" :class="{complete : task.complete}">
                 <label>
                     <ui-checkbox type="checkbox" v-model="task.complete" >
-                        {{task.name}}
+                      <strike v-if="task.complete"> {{task.name}}</strike>
+                        <a v-else>{{task.name}}</a>
                     </ui-checkbox>
                 </label>
             </li>
