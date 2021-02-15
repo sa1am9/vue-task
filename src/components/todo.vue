@@ -6,9 +6,8 @@
                 <ul class="tasks">
                     <li v-for="task in tasks.filter(task_find => task_find.complete == false)" :class="{complete : task.complete}">
                         <label>
-                            <ui-checkbox type="checkbox" v-model="task.complete" >
-                              <strike v-if="task.complete"> {{task.name}}</strike>
-                                <a v-else>{{task.name}}</a>
+                            <ui-checkbox type="checkbox" v-model="task.complete"  @change="check($event)">
+                                <a>{{task.name}}</a>
                             </ui-checkbox>
                         </label>
                     </li>
@@ -19,8 +18,7 @@
                     <li v-for="task in tasks.filter(task_find => task_find.complete == true)" :class="{complete : task.complete}">
                         <label>
                             <ui-checkbox type="checkbox" v-model="task.complete" >
-                                <strike v-if="task.complete"> {{task.name}}</strike>
-                                <a v-else>{{task.name}}</a>
+                                <strike> {{task.name}}</strike>
                             </ui-checkbox>
                         </label>
                     </li>
@@ -44,7 +42,16 @@ import tasks from './tasks'
             }
         },
         computed:{
-
+        },
+        mounted () {
+            if (localStorage.tasks === undefined){
+                localStorage.tasks = this.tasks
+            }
+        },
+        watch:{
+          tasks(new_tasks){
+              localStorage.tasks = new_tasks
+          }
         },
         methods : {
             addTask () {
@@ -59,6 +66,9 @@ import tasks from './tasks'
                 if (charCode===13){
                    this.addTask()
                 }
+            },
+            async check(event){
+                ///animation after click that task is done
             }
         }
     };
