@@ -1,16 +1,32 @@
 <template>
     <div class="todo">
         <h1 class="title">Checklist</h1>
-        <ul class="tasks">
-            <li v-for="task in tasks" :class="{complete : task.complete}">
-                <label>
-                    <ui-checkbox type="checkbox" v-model="task.complete" >
-                      <strike v-if="task.complete"> {{task.name}}</strike>
-                        <a v-else>{{task.name}}</a>
-                    </ui-checkbox>
-                </label>
-            </li>
-        </ul>
+        <ui-tabs>
+            <ui-tab title="Pending">
+                <ul class="tasks">
+                    <li v-for="task in tasks.filter(task_find => task_find.complete == false)" :class="{complete : task.complete}">
+                        <label>
+                            <ui-checkbox type="checkbox" v-model="task.complete" >
+                              <strike v-if="task.complete"> {{task.name}}</strike>
+                                <a v-else>{{task.name}}</a>
+                            </ui-checkbox>
+                        </label>
+                    </li>
+                </ul>
+            </ui-tab>
+            <ui-tab title="Complete">
+                <ul class="tasks">
+                    <li v-for="task in tasks.filter(task_find => task_find.complete == true)" :class="{complete : task.complete}">
+                        <label>
+                            <ui-checkbox type="checkbox" v-model="task.complete" >
+                                <strike v-if="task.complete"> {{task.name}}</strike>
+                                <a v-else>{{task.name}}</a>
+                            </ui-checkbox>
+                        </label>
+                    </li>
+                </ul>
+            </ui-tab>
+        </ui-tabs>
         <div class="container">
             <ui-textbox class="input-text" v-on:keydown="EnterkeyPress"  placeholder="Add item here" v-model="newTaskName" v-on:keyup.enter="addTask"></ui-textbox>
             <ui-button class="button-add" color="primary" v-on:click="addTask" icon="add">Add</ui-button>
@@ -28,6 +44,7 @@ import tasks from './tasks'
             }
         },
         computed:{
+
         },
         methods : {
             addTask () {
