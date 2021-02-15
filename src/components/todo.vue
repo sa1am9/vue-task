@@ -4,24 +4,12 @@
         <ui-tabs>
             <ui-tab title="Pending">
                 <ul class="tasks">
-                    <li v-for="task in tasks.filter(task_find => task_find.complete == false)" :class="{complete : task.complete}">
-                        <label>
-                            <ui-checkbox type="checkbox" v-model="task.complete"  @change="check($event)">
-                                <a>{{task.name}}</a>
-                            </ui-checkbox>
-                        </label>
-                    </li>
+                    <tasks :tasks="tasks.filter(task_find => task_find.complete == false)"/>
                 </ul>
             </ui-tab>
             <ui-tab title="Complete">
                 <ul class="tasks">
-                    <li v-for="task in tasks.filter(task_find => task_find.complete == true)" :class="{complete : task.complete}">
-                        <label>
-                            <ui-checkbox type="checkbox" v-model="task.complete" >
-                                <strike> {{task.name}}</strike>
-                            </ui-checkbox>
-                        </label>
-                    </li>
+                  <tasks :tasks="tasks.filter(task_find => task_find.complete == true)"/>
                 </ul>
             </ui-tab>
         </ui-tabs>
@@ -33,6 +21,7 @@
 </template>
 
 <script>
+import tasks from './tasks';
     export default {
         data () {
             return {
@@ -54,6 +43,10 @@
                 newTaskName : ''
             }
         },
+        components:{
+            tasks
+        },
+
         computed:{
         },
         mounted () {
@@ -61,7 +54,6 @@
                 localStorage.setItem("tasks", JSON.stringify(this.tasks));
             }
             else {
-                console.log(JSON.parse(localStorage.getItem("tasks")))
                 this.tasks = JSON.parse(localStorage.getItem("tasks"));
             }
         },
