@@ -91,6 +91,8 @@ import tasks from './tasks'
             padding: 0;
             overflow: scroll;
             overflow-x: hidden;
+            max-height: 15em; /* 1.5 x 10 */
+            overflow-y: auto;
         }
         .container {
             display: inline-flex;
